@@ -19,18 +19,20 @@ Vagrant::Config.run do |config|
   config.vm.forward_port 80, 8080
   config.vm.share_folder("v-root", "/vagrant", ".")
   config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "../cookbooks")
-  config.vm.share_folder("src", "/code/myproject", "/code/myproject")
+  config.vm.share_folder("src", "/code/myproject", "../code/myproject")
 
   ###
   ## The meat of the config
   #
-  config.vm.provision :shell, :path => "cmd.sh"
+#Swapping these until the sudoers issue is fixed.
+  config.vm.provision :shell, :path => "test_sudo.sh"
+#  config.vm.provision :shell, :path => "cmd.sh"
 
   config.ssh.max_tries = 40
   config.ssh.timeout   = 120
 
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "~/vms/cookbooks"
+    chef.cookbooks_path = "../cookbooks"
 
     chef.json = {
      :www_root => '/vagrant/public',
