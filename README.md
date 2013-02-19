@@ -14,4 +14,5 @@ Todo
 * Make the drupal cookbook idempotent
 * database import
 * setup code repo instead of shared with host
+* setup config file to handle users, shared directories, etc.
 * Many other things yet to be determined
