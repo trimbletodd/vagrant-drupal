@@ -18,6 +18,10 @@ Vagrant::Config.run do |config|
   # config.vm.network :bridged
   config.vm.network :hostonly, HOSTONLY_IP
 
+  #These two speed up VM internet. Goes from 5+ second to get connection to .2 seconds...
+  config.vm.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+  config.vm.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+
   ###
   ## This is expecting to map these directories to the VM
   #
@@ -27,21 +31,19 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.share_folder("v-root", "/vagrant", ".")
-  config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "../cookbooks")
+  config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "./cookbooks")
   config.vm.share_folder("src", "/code", CODEBASE)
 
   ###
   ## The meat of the config
   #
-#Swapping these until the sudoers issue is fixed.
-  config.vm.provision :shell, :path => "test_sudo.sh"
-#  config.vm.provision :shell, :path => "cmd.sh"
+  config.vm.provision :shell, :path => "cmd.sh"
 
   config.ssh.max_tries = 40
   config.ssh.timeout   = 120
 
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "../cookbooks"
+    chef.cookbooks_path = "./cookbooks"
 
     chef.json = {
      :www_root => '/vagrant/public',
