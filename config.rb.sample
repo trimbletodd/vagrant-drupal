@@ -1,2 +1,2 @@
 CODEBASE='/path/to/my/codebase'
-HOSTONLY_IP = "192.168.1.1"
+HOSTONLY_IP = "192.168.1.50"
