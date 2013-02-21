@@ -1,4 +1,6 @@
 *~
-local
+*.swp
 .vagrant
 config.rb
+local
+cookbooks/
