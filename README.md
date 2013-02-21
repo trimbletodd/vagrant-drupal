@@ -1,12 +1,19 @@
-vagrant-drupal
-==============
+Warning
+=======
 
-simple config to get a drupal box up and running on vagrant.
+This repo is under active development.
 
 Intent
 ===========
 
-Sets up new Vagrant instance with running Drupal instance.
+This config is meant to act as a base config to set up a robust Drupal environment, including multiple servers fulfilling different roles.
+
+Primary roles will include:
+
+* Database
+* Web Server
+* Redis Server
+* Background Runner
 
 Todo
 ====
