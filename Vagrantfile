@@ -1,3 +1,9 @@
+load 'config.rb' if File.exists?('config.rb')
+
+CODEBASE ||='../code/myproject'
+HOSTONLY_IP ||= "192.168.64.100"
+FORWARD_PORTS ||= {80 => 8080}
+
 Vagrant::Config.run do |config|
   config.vm.host_name = "drupal-fullstack"
 
@@ -10,16 +16,19 @@ Vagrant::Config.run do |config|
                        "--cpus", "2"]
 
   # config.vm.network :bridged
-  config.vm.network :hostonly, "192.168.64.100"
+  config.vm.network :hostonly, HOSTONLY_IP
 
   ###
   ## This is expecting to map these directories to the VM
   #
 
-  config.vm.forward_port 80, 8080
+  FORWARD_PORTS.each do |src, dest|
+    config.vm.forward_port src, dest
+  end
+
   config.vm.share_folder("v-root", "/vagrant", ".")
   config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "../cookbooks")
-  config.vm.share_folder("src", "/code/myproject", "../code/myproject")
+  config.vm.share_folder("src", "/code", CODEBASE)
 
   ###
   ## The meat of the config
