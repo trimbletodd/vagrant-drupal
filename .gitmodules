@@ -1,24 +1,3 @@
-[submodule "apache2"]
-  path = cookbooks/apache2
-  url = git@github.com:opscode-cookbooks/apache2.git
-[submodule "cron"]
-	path = cookbooks/cron
-	url = git@github.com:opscode-cookbooks/cron.git
-[submodule "drupal-cookbook"]
-	path = cookbooks/drupal-cookbook
-	url = git@github.com:mdxp/drupal-cookbook.git
-[submodule "mysql"]
-	path = cookbooks/mysql
-	url = git@github.com:opscode-cookbooks/mysql.git
-[submodule "openssl"]
-	path = cookbooks/openssl
-	url = git@github.com:opscode-cookbooks/openssl.git
-[submodule "php"]
-	path = cookbooks/php
-	url = git@github.com:opscode-cookbooks/php.git
-[submodule "postfix"]
-	path = cookbooks/postfix
-	url = git@github.com:opscode-cookbooks/postfix.git
 [submodule "cookbooks/apache2"]
 	path = cookbooks/apache2
 	url = git@github.com:opscode-cookbooks/apache2.git
