@@ -31,7 +31,7 @@ Vagrant::Config.run do |config|
   end
 
   config.vm.share_folder("v-root", "/vagrant", ".")
-  config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "./cookbooks")
+  config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "cookbooks")
   config.vm.share_folder("src", "/code", CODEBASE)
 
   ###

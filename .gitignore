@@ -3,4 +3,3 @@
 .vagrant
 config.rb
 local
-cookbooks/
