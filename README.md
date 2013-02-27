@@ -15,11 +15,14 @@ Primary roles will include:
 * Redis Server
 * Background Runner
 
-Todo
-====
+Steps Forward
+=============
 
-* Make the drupal cookbook idempotent
-* database import
-* setup code repo instead of shared with host
-* setup config file to handle users, shared directories, etc.
-* Many other things yet to be determined
+* Build 1 DB Machine (no chef)
+* Setup vagrant role to be a drupal web server connecting to DB machine
+* Test multiple web servers connecting to single DB
+* Build Redis Box
+* Update WebServer vagrant config to connect with Redis
+* Build Background Runner box (should be similar to WebServer)
+* Test background Runner connecting to DB and Redis
+* Research deployment options of Vagrant -> AWS
