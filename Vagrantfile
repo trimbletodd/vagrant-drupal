@@ -2,7 +2,7 @@ load 'config.rb' if File.exists?('config.rb')
 
 CODEBASE ||='../code/myproject'
 HOSTONLY_IP ||= "192.168.64.100"
-FORWARD_PORTS ||= {80 => 8080}
+FORWARD_PORTS ||= {80 => 8080, 443 => 8443}
 
 Vagrant::Config.run do |config|
   config.vm.host_name = "drupal-fullstack"

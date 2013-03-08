@@ -38,9 +38,10 @@ rm remi-release-6*.rpm epel-release-6*.rpm rpmforge-release*.rf.x86_64.rpm
 rm RPM-GPG-KEY-EPEL-6 RPM-GPG-KEY-remi RPM-GPG-KEY.dag.txt
 
 ECHO ""
-ECHO "This may take awhile"
-ECHO "Updating yum cache..."
+ECHO "Updating yum cache"
+ECHO "This may take awhile..."
 yum makecache &>> $logfile
+
 
 ECHO ""
 ECHO "Installing useful stuff..."
@@ -127,6 +128,9 @@ fi
 if (( `cat /etc/passwd | grep "/home/apache" | wc -l` == 1 )) && [[ -f /home/apache/.ssh/authorized_keys ]]
 then
    ECHO "Apache user already setup"
+
+   ECHO "Don't forget to add the git repo to clone"
+   #git clone git://github.com/trimbletodd/website.git
 else
    # setting up apache to have same ssh keys as user
    mkdir -p /home/apache/.ssh
