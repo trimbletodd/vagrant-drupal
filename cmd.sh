@@ -38,12 +38,13 @@ rm remi-release-6*.rpm epel-release-6*.rpm rpmforge-release*.rf.x86_64.rpm
 rm RPM-GPG-KEY-EPEL-6 RPM-GPG-KEY-remi RPM-GPG-KEY.dag.txt
 
 ECHO ""
+ECHO "This may take awhile"
 ECHO "Updating yum cache..."
 yum makecache &>> $logfile
 
 ECHO ""
 ECHO "Installing useful stuff..."
-yum install -y bind-utils mlocate vim emacs tree man nodejs mod_ssl php-gd php-cgi php-mysql php-intl php-curl libmcrypt redis bc htop &>> $logfile
+yum install -y bind-utils mlocate vim emacs tree man mod_ssl php-gd php-cgi php-mysql php-intl php-curl libmcrypt redis bc htop &>> $logfile
 
 ECHO ""
 ECHO "Configuring 'redis'"
@@ -71,7 +72,7 @@ yum -y groupinstall --disablerepo=rpmforge  "Development Tools" &>> $logfile
 if [[ -f /usr/local/bin/node ]] 
 then
    ECHO ""
-   ECHO "Installed Node.JS version: `node -v`"
+   ECHO "Node.JS version: `node -v`"
 else
    ECHO ""
    ECHO "Downloading node.js..."
