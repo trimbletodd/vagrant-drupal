@@ -1,6 +1,7 @@
 load 'config.rb' if File.exists?('config.rb')
 
-CODEBASE ||='../code/myproject'
+#We shouldn't need CODEBASE if code will be from a repo
+#CODEBASE ||='../code/myproject'
 HOSTONLY_IP ||= "192.168.64.100"
 FORWARD_PORTS ||= {80 => 8080, 443 => 8443}
 
@@ -32,7 +33,9 @@ Vagrant::Config.run do |config|
 
   config.vm.share_folder("v-root", "/vagrant", ".")
   config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "cookbooks")
-  config.vm.share_folder("src", "/code", CODEBASE)
+
+#See above where CODEBASE is defined
+#  config.vm.share_folder("src", "/code", CODEBASE)
 
   ###
   ## The meat of the config
@@ -56,7 +59,7 @@ Vagrant::Config.run do |config|
         :db => {
           :password => "drupalpass"
         },
-        :dir => "/vagrant/mysite"
+        :dir => "/var/www/html"
       },
       :hosts => {
         :localhost_aliases => ["drupal.vbox.local", "dev-site.vbox.local"]

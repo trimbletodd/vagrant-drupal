@@ -139,7 +139,27 @@ else
    chown -R apache.apache /home/apache/.ssh
 fi
 
+ECHO "Adding cert files for Apache SSL..."
+keyname='vagrant'
+httpd_cert_dir="/etc/httpd/ssl/cert/"
+
+# generate key
+#openssl genrsa -des3 -out ${keyname}.key 1024
+# strip password
+#mv ${keyname}.key ${keyname}.key.pass
+#openssl rsa -in ${keyname}.key.pass -out ${keyname}.key
+# generate csr
+#openssl req -new -key ${keyname}.key -out ${keyname}.csr
+# generate self singe certificate with csr
+#openssl x509 -req -days 3650 -in ${keyname}.csr -signkey ${keyname}.key -out ${keyname}.crt
+
+#rm ${keyname}.key.pass
+
+mkdir -p $httpd_cert_dir
+cp /vagrant/certs/${keyname}.* $httpd_cert_dir
+
 ECHO ""
 ECHO "#####"
-ECHO " Done "
+ECHO " Done with main script... "
 ECHO "#####"
+exit 0
