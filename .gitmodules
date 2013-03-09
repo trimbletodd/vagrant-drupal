@@ -1,12 +1,6 @@
-[submodule "cookbooks/apache2"]
-	path = cookbooks/apache2
-	url = git@github.com:opscode-cookbooks/apache2.git
 [submodule "cookbooks/cron"]
 	path = cookbooks/cron
 	url = git@github.com:opscode-cookbooks/cron.git
-[submodule "cookbooks/drupal-cookbook"]
-	path = cookbooks/drupal-cookbook
-	url = git@github.com:mdxp/drupal-cookbook.git
 [submodule "cookbooks/mysql"]
 	path = cookbooks/mysql
 	url = git@github.com:opscode-cookbooks/mysql.git
