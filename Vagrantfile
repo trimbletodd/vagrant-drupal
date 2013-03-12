@@ -1,12 +1,18 @@
 load 'config.rb' if File.exists?('config.rb')
 
-#We shouldn't need CODEBASE if code will be from a repo
-#CODEBASE ||='../code/myproject'
+# Set defaults for configs not explicitly set.
 HOSTONLY_IP ||= "192.168.64.100"
 FORWARD_PORTS ||= {80 => 8080, 443 => 8443}
+ROLE ||= 'standalone'
+COUNT ||= ''
+MYSQL_ROOT_PASSWORD ||= "rootpass"
+MYSQL_REPL_PASSWORD ||= "replpass"
+DEBIAN_PASSWORD ||= "debpass"
+DRUPAL_PASSWORD ||= "drupalpass"
+DRUPAL_DIR ||= "/var/www/html"
 
 Vagrant::Config.run do |config|
-  config.vm.host_name = "drupal-fullstack"
+  config.vm.host_name = "drupal-" + ROLE.downcase + COUNT
 
   config.vm.box = "centos-6.3-minimal"
   config.vm.box_url = "https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box"
@@ -34,9 +40,6 @@ Vagrant::Config.run do |config|
   config.vm.share_folder("v-root", "/vagrant", ".")
   config.vm.share_folder("cookbooks", "/var/chef/cookbooks", "cookbooks")
 
-#See above where CODEBASE is defined
-#  config.vm.share_folder("src", "/code", CODEBASE)
-
   ###
   ## The meat of the config
   #
@@ -49,30 +52,37 @@ Vagrant::Config.run do |config|
     chef.cookbooks_path = "./cookbooks"
 
     chef.json = {
-     :www_root => '/vagrant/public',
-     :mysql => {
-        :server_root_password => "rootpass",
-        :server_repl_password => "replpass",
-        :server_debian_password => "debpass"
-     },
-     :drupal => {
+      :www_root => '/vagrant/public',
+      :mysql => {
+        :server_root_password => MYSQL_ROOT_PASSWORD,
+        :server_repl_password => MYSQL_REPL_PASSWORD,
+        :server_debian_password => DEBIAN_PASSWORD
+      },
+      :drupal => {
         :db => {
-          :password => "drupalpass"
+          :password => DRUPAL_PASSWORD
         },
-        :dir => "/var/www/html"
+        :dir => DRUPAL_DIR
       },
       :hosts => {
         :localhost_aliases => ["drupal.vbox.local", "dev-site.vbox.local"]
       }  
     }
 
-    chef.run_list = [
-                     "recipe[php]", 
-                     "recipe[mysql]", 
-                     "recipe[apache2]", 
-                     "recipe[openssl]", 
-                     "recipe[drupal]", 
-                     "recipe[drupal::drush]"
-    ]
+    if ('webserver', 'standalone').include?(ROLE)
+      chef.run_list = [
+                       "recipe[php]", 
+                       "recipe[apache2]", 
+                       "recipe[openssl]", 
+                       "recipe[drupal]", 
+                       "recipe[drupal::drush]"
+                      ]
+    end
+    
+    if ROLE == "standalone"
+      chef.run_list = [
+                       "recipe[mysql]", 
+                      ]
+    end
   end
 end

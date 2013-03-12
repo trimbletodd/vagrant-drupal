@@ -1,2 +1,20 @@
-CODEBASE='/path/to/my/codebase'
+# Set the path to the shared codebase
+CODEREPO='git@github.com:myuser/myrepo.git'
+
+# Set the IP of the VM
 HOSTONLY_IP = "192.168.1.50"
+
+# Current possible roles are 'standalone' and 'webserver'
+# ROLE='standalone'
+
+# Set the count of the host to avoid namespace conflict 
+# COUNT=1
+
+# Define which ports should be forwarded.
+# FORWARD_PORTS ||= {80 => 8080, 443 => 8443}
+
+# MYSQL_ROOT_PASSWORD = "rootpass"
+# MYSQL_REPL_PASSWORD = "replpass"
+# DEBIAN_PASSWORD = "debpass"
+# DRUPAL_PASSWORD = "drupalpass"
+# DRUPAL_DIR = "/var/www/html"
