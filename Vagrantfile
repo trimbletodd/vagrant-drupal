@@ -12,7 +12,7 @@ DRUPAL_PASSWORD ||= "drupalpass"
 DRUPAL_DIR ||= "/var/www/html"
 
 Vagrant::Config.run do |config|
-  config.vm.host_name = "drupal-" + ROLE.downcase + COUNT
+  config.vm.host_name = "drupal-" + ROLE.downcase + COUNT.to_s
 
   config.vm.box = "centos-6.3-minimal"
   config.vm.box_url = "https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box"
@@ -69,7 +69,7 @@ Vagrant::Config.run do |config|
       }  
     }
 
-    if ('webserver', 'standalone').include?(ROLE)
+    if ['webserver', 'standalone'].include?(ROLE)
       chef.run_list = [
                        "recipe[php]", 
                        "recipe[apache2]", 
